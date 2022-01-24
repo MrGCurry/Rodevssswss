@@ -1,0 +1,40 @@
+local random = Random.new()
+local letters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}
+
+function getRandomLetter()
+	return letters[random:NextInteger(1,#letters)]
+end
+
+function getRandomString(length, includeCapitals)
+	local length = length or 10
+	local str = ''
+	for i=1,length do
+		local randomLetter = getRandomLetter()
+		if includeCapitals and random:NextNumber() > .5 then
+			randomLetter = string.upper(randomLetter)
+		end
+		str = str .. randomLetter
+	end
+	return str
+end
+
+game.StarterPlayer.StarterCharacterScripts.Ac.Name = getRandomLetter(30, true)
+
+function Encrypt()
+	script.Name = math.random(111111111,999999999)
+end
+Encrypt()
+
+interval = 1
+punishment = 1
+
+while wait() do
+	currPos = script.Parent.HumanoidRootPart.Position
+	wait(interval)
+	nowPos = script.Parent.HumanoidRootPart.Position
+	distMoved = nowPos-currPos
+	maxMovable = interval*script.Parent.Humanoid.WalkSpeed
+	if distMoved.X > (maxMovable+10) or distMoved.X < -(maxMovable+10) or distMoved.Z > (maxMovable+10) or distMoved.Z < -(maxMovable+10) then
+		script.Parent:Destroy()
+	end
+end
